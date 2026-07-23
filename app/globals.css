@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS — "Instrumento Analítico"
+   Base branca. Cor = dado, nunca decoração.
+   ============================================================ */
+@layer base {
+  :root {
+    /* --- Superfícies --- */
+    --c-base: #ffffff;
+    --c-surface: #fafaf9;
+    --c-surface-2: #f5f5f4;
+    --c-hairline: #e7e5e4;
+
+    /* --- Tinta / Texto --- */
+    --c-ink: #0c0a09;
+    --c-ink-2: #57534e;
+    --c-ink-3: #a8a29e;
+
+    /* --- Acento --- */
+    --c-accent: #e11d2e;
+    --c-accent-ink: #a1101d;
+    --c-accent-soft: #fef2f2;
+
+    /* --- Cores de categoria (herdadas dos ícones nativos) --- */
+    --c-cat-data: #3776ab;  /* Python */
+    --c-cat-bi: #b8860b;    /* Power BI (escurecido p/ contraste AA) */
+    --c-cat-web: #0f5c7a;   /* SQLite / Web */
+    --c-cat-auto: #57534e;  /* Automação */
+
+    /* --- Raio --- */
+    --r-xs: 2px;
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 14px;
+
+    /* --- Sombras (baixíssimas, estética de papel) --- */
+    --sh-subtle: 0 1px 2px rgba(12, 10, 9, 0.04);
+    --sh-raised: 0 2px 8px rgba(12, 10, 9, 0.06), 0 1px 2px rgba(12, 10, 9, 0.04);
+    --sh-float: 0 12px 40px rgba(12, 10, 9, 0.1), 0 2px 8px rgba(12, 10, 9, 0.05);
+
+    /* --- Espaçamento de seção --- */
+    --space-section: clamp(5rem, 11vw, 9rem);
+  }
+
+  * {
+    border-color: var(--c-hairline);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--c-base);
+    color: var(--c-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--c-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+    border-radius: var(--r-xs);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Container padrão do site */
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Label monoespaçado de seção — assinatura tipográfica do projeto */
+  .eyebrow {
+    @apply font-mono text-label uppercase text-ink-3;
+  }
+
+  /* Grid milimetrado de fundo — o "papel de laboratório" */
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, var(--c-hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--c-hairline) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .grid-paper-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+
+  /* Botão primário */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-ink px-6 py-3.5
+           text-sm font-medium text-white transition-all duration-300 ease-out
+           hover:bg-accent hover:shadow-raised active:scale-[0.98];
+  }
+
+  /* Botão secundário */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-hairline
+           bg-base px-6 py-3.5 text-sm font-medium text-ink transition-all duration-300 ease-out
+           hover:border-ink hover:shadow-subtle active:scale-[0.98];
+  }
+
+  /* Badge de tecnologia */
+  .badge {
+    @apply inline-flex items-center rounded-xs border border-hairline bg-surface px-2 py-1
+           font-mono text-[10px] uppercase tracking-wider text-ink-2;
+  }
+
+  /* Linha hairline que se desenha */
+  .rule {
+    @apply h-px w-full bg-hairline;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
